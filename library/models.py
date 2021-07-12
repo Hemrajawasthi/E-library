@@ -36,51 +36,54 @@ class Program(models.Model):
         return self.program_name
 
 
-class Course(models.Model):
-    program_name = models.OneToOneField(Program, on_delete=models.CASCADE)
-    semester = models.OneToOneField(Semester, on_delete=models.CASCADE)
-    course_name = models.CharField(max_length=50)
-    course_code = models.CharField(max_length=10)
+class Subject(models.Model):
+    program_name = models.ForeignKey(Program, on_delete=models.CASCADE)
+    semester = models.ForeignKey(Semester, on_delete=models.CASCADE)
+    subject_name = models.CharField(max_length=50)
+    subject_code = models.CharField(max_length=10)
     credit_hrs = models.IntegerField()
 
     def __str__(self):
-        return self.course_name
+        return self.subject_name
 
 
 class Note(models.Model):
     program_name = models.ForeignKey(Program, on_delete=models.CASCADE)
     semester = models.ForeignKey(Semester, on_delete=models.CASCADE)
-    name = models.CharField(max_length=50)
+    subject = models.ForeignKey(Subject, on_delete=models.CASCADE, related_name='subjec', default='null')
+    # subject_code = models.ForeignKey(Subject, on_delete=models.CASCADE, related_name='subject_cod')
     file = models.FileField(upload_to='notes', blank=True)
-    # course_code = models.OneToOneField(Course, on_delete=models.CASCADE)
     added_by = models.CharField(max_length=50, null=True)
     date_of_added = models.DateField(auto_now=models.DateField())
     date_of_modified = models.DateField(auto_now=models.DateField())
 
     def __str__(self):
-        return self.name
-#
-## class Syalabus(models.Model):
-#     program_name = models.OneToOneField(Program, on_delete=models.CASCADE)
-#     semester = models.OneToOneField(Semester, on_delete=models.CASCADE)
-#     name = models.CharField(max_length=50)
-#     course_code = models.OneToOneField(Course, on_delete=models.CASCADE)
-#     added_by = models.CharField(max_length=50, null=True)
-#     date_of_added = models.DateField(auto_now=models.DateField())
-#     date_of_modified = models.DateField(auto_now=models.DateField())
-#
-#     def __str__(self):
-#         return self.name
-#
-#
-# class OldQuestionPaper(models.Model):
-#     program_name = models.OneToOneField(Program, on_delete=models.CASCADE)
-#     semester = models.OneToOneField(Semester, on_delete=models.CASCADE)
-#     name = models.CharField(max_length=50)
-#     course_code = models.OneToOneField(Course, on_delete=models.CASCADE)
-#     added_by = models.CharField(max_length=50, null=True)
-#     date_of_added = models.DateField(auto_now=models.DateField())
-#     date_of_modified = models.DateField(auto_now=models.DateField())
-#
-#     def __str__(self):
-#         return self.name
+        return self.added_by
+
+
+class Syllabus(models.Model):
+    program_name = models.ForeignKey(Program, on_delete=models.CASCADE)
+    semester = models.ForeignKey(Semester, on_delete=models.CASCADE)
+    subject = models.ForeignKey(Subject, on_delete=models.CASCADE, related_name='subjects')
+    subject_code = models.ForeignKey(Subject, on_delete=models.CASCADE, related_name='subject_codes')
+    credit_hrs = models.IntegerField()
+    added_by = models.CharField(max_length=50, null=True)
+    date_of_added = models.DateField(auto_now=models.DateField())
+    date_of_modified = models.DateField(auto_now=models.DateField())
+
+    def __str__(self):
+        return str(self.credit_hrs)
+
+
+class OldQuestionPaper(models.Model):
+    program_name = models.ForeignKey(Program, on_delete=models.CASCADE)
+    semester = models.ForeignKey(Semester, on_delete=models.CASCADE, related_name='sem')
+    subject = models.ForeignKey(Subject, on_delete=models.CASCADE, related_name='sub')
+    subject_code = models.ForeignKey(Subject, on_delete=models.CASCADE, related_name='sub_code')
+    file = models.FileField(upload_to='oldpaper', blank=True)
+    added_by = models.CharField(max_length=50, null=True)
+    date_of_added = models.DateField(auto_now=models.DateField())
+    date_of_modified = models.DateField(auto_now=models.DateField())
+
+    def __str__(self):
+        return self.added_by

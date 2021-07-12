@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 from rest_framework import serializers
 from rest_framework.permissions import IsAuthenticated
 
-from library.models import Semester, Program, Note
+from library.models import Semester, Program, Note, OldQuestionPaper, Syllabus
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -37,6 +37,26 @@ class NoteSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class OldQuestionPaperSerializer(serializers.ModelSerializer):
+    semester = serializers.StringRelatedField(read_only=True)
+    program_name = serializers.StringRelatedField(read_only=True)
+    # subject = serializers.StringRelatedField(read_only=True)
+    # subject_code = serializers.StringRelatedField(read_only=True)
+
+    class Meta:
+        model = OldQuestionPaper
+        fields = '__all__'
+
+
+class SyllabusSerializer(serializers.ModelSerializer):
+    semester = serializers.StringRelatedField(read_only=True)
+    program_name = serializers.StringRelatedField(read_only=True)
+    # subject = serializers.StringRelatedField(read_only=True)
+    # subject_code = serializers.StringRelatedField(read_only=True)
+
+    class Meta:
+        model = Syllabus
+        fields = '__all__'
 # class NoteSerializer(serializers.ModelSerializer):
 #     semester = serializers.StringRelatedField(read_only=True)
 #     program_name = serializers.StringRelatedField(read_only=True)

@@ -33,6 +33,13 @@ urlpatterns = [
     path('api/programs', api_program, name='programs'),
     path('api/semesters', api_semester, name='semesters'),
     path('api/users', api_users, name='users'),
+    path('api/papers', api_oldquestionpaper, name='papers'),
+    path('api/syllabus', api_syllabus, name='papers'),
+
+    # path('api/users/{id}', api_users, name='users'),
+
+
+
 
 
     # path('auth/', include('library.urls'))

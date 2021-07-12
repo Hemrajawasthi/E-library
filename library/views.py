@@ -6,8 +6,9 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.parsers import JSONParser
 
 from .serializer import UserSerializer
-from library.models import Semester, Note, Program
-from library.serializer import SemesterSerializer, NoteSerializer, ProgramSerializer
+from library.models import Semester, Note, Program, Syllabus
+from library.serializer import *
+# from library.serializer import SemesterSerializer, NoteSerializer, ProgramSerializer
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -75,6 +76,39 @@ def api_users(request):
     elif request.method == 'POST':
         data = JSONParser().parse(request)
         serializer = UserSerializer(data=data)
+
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(serializer.data, status=201)
+        return JsonResponse(serializer.errors, status=400)
+
+
+def api_oldquestionpaper(request):
+    if request.method == 'GET':
+        old = OldQuestionPaper.objects.all()
+        serializer = OldQuestionPaperSerializer(old, many=True)
+        return JsonResponse(serializer.data, safe=False)
+
+    elif request.method == 'POST':
+        data = JSONParser().parse(request)
+        serializer = SemesterSerializer(data=data)
+
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(serializer.data, status=201)
+        return JsonResponse(serializer.errors, status=400)
+
+
+def api_syllabus(request):
+
+    if request.method == 'GET':
+        syllabus = Syllabus.objects.all()
+        serializer = SyllabusSerializer(syllabus, many=True)
+        return JsonResponse(serializer.data, safe=False)
+
+    elif request.method == 'POST':
+        data = JSONParser().parse(request)
+        serializer = SyllabusSerializer(data=data)
 
         if serializer.is_valid():
             serializer.save()

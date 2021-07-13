@@ -10,12 +10,9 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 import os
-from datetime import timedelta
 from pathlib import Path
 import datetime
 
-
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 MEDIA_DIR = BASE_DIR / 'media'
 
@@ -59,27 +56,6 @@ MIDDLEWARE = [
 ]
 
 REST_FRAMEWORK = {
-    # Use Django's standard `django.contrib.auth` permissions,
-    # or allow read-only access for unauthenticated users.
-    #     'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
-    #     'rest_framework.permission.IsAuthenticated'
-    #     'rest_framework_simplejwt.authentication.JWTTokenUserAuthentication',
-
-        # 'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAuthenticated',),
-        # 'DEFAULT_AUTHENTICATION_CLASSES': ('rest_framework_simplejwt.authentication.JWTTokenUserAuthentication',)
-    # 'DEFAULT_AUTHENTICATION_CLASSES': (
-    #     'rest_framework_simplejwt.authentication.JWTAuthentication',
-    #     'rest_framework_simplejwt.authentication.JWTTokenUserAuthentication',
-    #
-    # )
-
-    # 'DEFAULT_AUTHENTICATION_CLASSES': (
-    #     'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
-    #   ),
-
-    # 'DEFAULT_PERMISSION_CLASSES': (
-    #     'rest_framework.permissions.IsAuthenticated',
-    # ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.TokenAuthentication',
         'rest_framework.authentication.BasicAuthentication',
@@ -88,7 +64,6 @@ REST_FRAMEWORK = {
     'DEFAULT_PARSER_CLASSES': (
         'rest_framework.parsers.JSONParser',
     )
-
 
 }
 JWT_AUTH = {
@@ -99,34 +74,6 @@ JWT_AUTH = {
     'JWT_AUTH_HEADER_PREFIX': 'Bearer',
 
 }
-# SIMPLE_JWT = {
-#     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
-#     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
-#     'ROTATE_REFRESH_TOKENS': False,
-#     'BLACKLIST_AFTER_ROTATION': True,
-#     'UPDATE_LAST_LOGIN': False,
-#
-#     'ALGORITHM': 'HS256',
-#     'SIGNING_KEY': 'djv!wviid85=nk7x9q6%e0s^*dso@g1hxaht#&_6)t)g2$$vnh',
-#     'VERIFYING_KEY': None,
-#     'AUDIENCE': None,
-#     'ISSUER': None,
-#
-#     'AUTH_HEADER_TYPES': ('Bearer',),
-#     'AUTH_HEADER_NAME': 'HTTP_AUTHORIZATION',
-#     'USER_ID_FIELD': 'id',
-#     'USER_ID_CLAIM': 'user_id',
-#     'USER_AUTHENTICATION_RULE': 'rest_framework_simplejwt.authentication.default_user_authentication_rule',
-#
-#     'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
-#     'TOKEN_TYPE_CLAIM': 'token_type',
-#
-#     'JTI_CLAIM': 'jti',
-#
-#     'SLIDING_TOKEN_REFRESH_EXP_CLAIM': 'refresh_exp',
-#     'SLIDING_TOKEN_LIFETIME': timedelta(minutes=5),
-#     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
-# }
 
 ROOT_URLCONF = 'Elibrary.urls'
 
@@ -162,15 +109,16 @@ DATABASES = {
         'OPTIONS': {
             'sql_mode': 'traditional',
         }
-    },
-'postgresql': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'dfeh7kiber7nij',
-        'USER': 'eixgmwnhibculm',
-        'PASSWORD': 'bf65d261d2547540d111cd1d4a9cc00c98ab948031c9ccd068eb25035ce98560',
-        'HOST': 'postgresql.example.com',
-        'PORT': '5432',
     }
+    # },
+    # 'postgresql': {
+    #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    #     'NAME': 'dfeh7kiber7nij',
+    #     'USER': 'eixgmwnhibculm',
+    #     'PASSWORD': 'bf65d261d2547540d111cd1d4a9cc00c98ab948031c9ccd068eb25035ce98560',
+    #     'HOST': 'postgresql.example.com',
+    #     'PORT': '5432',
+    # }
 }
 
 # Password validation
@@ -216,4 +164,3 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
-

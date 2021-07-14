@@ -4,21 +4,21 @@ from django.db import models
 # Create your models here.
 
 
-class Usertype(models.Model):
-    type = models.CharField(max_length=30)
+# class Usertype(models.Model):
+#     type = models.CharField(max_length=30)
+#
+#     def __str__(self):
+#         return self.type
 
-    def __str__(self):
-        return self.type
 
-
-class User(models.Model):
-    username = models.CharField(max_length=30)
-    password = models.CharField(max_length=30)
+# class User(models.Model):
+#     username = models.CharField(max_length=30)
+#     password = models.CharField(max_length=30)
 
     # type = models.OneToOneField(Usertype, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.username
+    #
+    # def __str__(self):
+    #     return self.username
 
 
 class Semester(models.Model):

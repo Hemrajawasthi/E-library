@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'rest_framework',
     'library',
     'knox',
-    # 'rest_framework_simplejwt',
 
 ]
 

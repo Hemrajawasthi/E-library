@@ -5,49 +5,49 @@ from django.utils.html import format_html
 
 from library.models import *
 
-#
-# admin.site.register(Usertype)
-# admin.site.register(User)
-admin.site.register(Program)
 
-# class Program(admin.ModelAdmin):
-#     list_display = ['program_name', 'semester']
-#     list_filter = ('semester',)
-#     def supervisors(self, obj):
-#         return format_html('<br/>'.join([p.name for p in obj.supervisor.all()]))
-# @admin.register(Program)
-# class Program(admin.ModelAdmin):
-#     list_display = ['program_name', 'semester']
+@admin.register(Program)
+class Program(admin.ModelAdmin):
+    list_display = ['program_name', 'semesters']
 
-# def program_name(self, obj):
-#     return format_html('<br/>'.join([p.name for p in obj.program_name.all()]))
-
-# def semester(self, obj):
-#     return format_html('<br/>'.join([p.name for p in obj.semester.all()]))
+    def semesters(self, obj):
+        return format_html('<br/>'.join([p.semester for p in obj.semester.all()]))
 
 
 admin.site.register(Semester)
-admin.site.register(Subject)
-admin.site.register(Note)
 
 
-# admin.site.register(Syllabus)
+@admin.register(Subject)
+class Program(admin.ModelAdmin):
+    list_display = ['subject_name', 'program_name', 'semester']
+
+
+@admin.register(Note)
+class Note(admin.ModelAdmin):
+    list_display = ['subject', 'program_name', 'semester', 'file', 'added_by', 'date_of_added']
+    search_fields = ('subject__subject_name',)
+    list_filter = ('subject',)
+
+
 @admin.register(Syllabus)
 class Syllabus(admin.ModelAdmin):
+    list_display = ['program_name', 'semester', 'subject', 'subject_code', 'credit_hrs', 'added_by', 'date_of_added']
+    search_fields = ('semester__semester','program_name__program_name',)
+    list_filter = ('semester__semester','program_name__program_name',)
 
-    # def subject(self,obj):
-    #     return (obj.subject_name, obj.subject_code)
-    list_display = ['subject']
-
-    # subject.allow_html = True
-
-    # list_display = ['title', authors]
-
-    # def subject_code(self, obj):
-    #     return format_html('<br/>'.join([p.subject_code for p in obj.subject.all()]))
-
-    # def subject(self, obj):
-    #     return format_html('<br/>'.join([p.name for p in obj.subject_code.all()]))
+    # def get_form(self, request, obj=None, **kwargs):
+    #     current_user = request.user
+    #     if not current_user.is_staff:
+    #         self.exclude = ('added_by',)
+    #         self.list_display = ('name', 'finish')
+    #     form = super(Syllabus, self).get_form(request, obj, **kwargs)
+    #     form.current_user = current_user
+    #     return form
 
 
-admin.site.register(OldQuestionPaper)
+
+@admin.register(OldQuestionPaper)
+class Note(admin.ModelAdmin):
+    list_display = ['program_name', 'semester', 'subject', 'file', 'added_by', 'date_of_added']
+    search_fields = ('semester__semester', 'program_name__program_name', 'added_by',)
+    list_filter = ('semester__semester', 'program_name__program_name','added_by',)

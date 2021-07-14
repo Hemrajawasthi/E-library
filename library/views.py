@@ -29,16 +29,9 @@ class NoteViewSet(viewsets.ModelViewSet):
     # permission_classes = [permissions.IsAuthenticated]
     queryset = Note.objects.all()
     serializer_class = NoteSerializer
-
-    # criterion1 = Note(program_name__program_name="bca")
-    # criterion2 = Note(semester__semester="first semester")
-    # Note = Note.objects.filter('program_name__program_name' & 'semester__semester')
-
     filter_backends = [SearchFilter]
     search_fields = ['program_name__program_name', 'semester__semester',]
-        # 'subject__subject_name', 'program_name__program_name' and 'semester__semester', 'added_by', 'date_of_added',
-        # 'date_of_modified')
-        # `program_name__program_name`, `semester__semester`,)
+
 
 
 class ProgramViewSet(viewsets.ModelViewSet):

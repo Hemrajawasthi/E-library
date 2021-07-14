@@ -3,6 +3,7 @@ from django.conf.urls.static import static
 from django.urls import path, include, re_path
 from django.contrib import admin
 from rest_framework import routers
+from knox import views as knox_views
 
 from library import views
 from library.views import *
@@ -31,6 +32,10 @@ urlpatterns = [
     # path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('api/register/', RegisterAPI.as_view(), name='register'),
+    path('api/login/', LoginAPI.as_view(), name='login'),
+    path('api/logout/', knox_views.LogoutView.as_view(), name='logout'),
+    # path('api/logoutall/', knox_views.LogoutAllView.as_view(), name='logoutall'),
     # path('api/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
     # path('api/user_api/', views.api_notes ),
     # path('api/notes', api_notes, name='notes'),
